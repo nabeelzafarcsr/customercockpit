@@ -2,14 +2,7 @@
 	controllerName="com.csr.customercockpit.controller.Detail" xmlns:semantic="sap.m.semantic" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:forms="sap.ui.layout.form" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
 	<m:Page id="csrDetailPageId" height="100%" enableScrolling="true" busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}"
-		visible="false">
-		<m:customHeader>
-			<m:Bar class="detail-page-header-bar">
-				<m:contentMiddle>
-					<m:Title text="{i18n>detailTitle}"></m:Title>
-				</m:contentMiddle>
-			</m:Bar>
-		</m:customHeader>
+		visible="false" title="{i18n>detailTitle}" titleAlignment="Center">
 		<m:content>
 			<ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" alwaysShowContentHeader="false" height="100%">
 				<headerTitle>
@@ -81,7 +74,7 @@
 										<m:Table id="lineItemsList" updateFinished="onUpdateFinished" busyIndicatorDelay="{detailView>/delay}" growing="true"
 											growingScrollToLoad="true" class="sapUiResponsiveMargin lineItemsList">
 											<m:columns>
-												<m:Column demandPopin="true" minScreenWidth="Tablet" width="0.5rem"></m:Column>
+												<m:Column demandPopin="true" minScreenWidth="Tablet" width="2.5rem"></m:Column>
 												<m:Column demandPopin="true" minScreenWidth="Tablet"><m:Text text="{i18n>documentNumber}"/></m:Column>
 												<m:Column demandPopin="true" minScreenWidth="Tablet"><m:Text text="{i18n>customerPO}"/></m:Column>
 												<m:Column demandPopin="true" minScreenWidth="Tablet"><m:Text text="{i18n>status}"/></m:Column>

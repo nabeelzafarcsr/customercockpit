@@ -129,7 +129,7 @@
 						<!--<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center"><Text text="{i18n>expiry}"/></Column>-->
 						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="End"><Text text="{i18n>amount}"/></Column>
 						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center"><Text text="{i18n>referenceNo}"/></Column>
-						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" width="7rem"></Column>
+						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" width="10rem"></Column>
 					</columns>
 					<items>
 						<ColumnListItem>
@@ -151,11 +151,15 @@
 								<!--		<core:Item key="{yearViewModel>Key}" text="{yearViewModel>Value}"/>-->
 								<!--	</Select>-->
 								<!--</HBox>-->
-								<HBox justifyContent="End">
+								<HBox justifyContent="End" width="100%" renderType="Bare">
 									<Text text="{paymentViewModel>documentCurrency}"/>
-									<Input textAlign="End" type="Number" class="sapUiSmallMarginBegin" change="onCardAmountChange" value="{paymentViewModel>cardAmount}"
+									<Input textAlign="End" type="Number" class="sapUiSmallMarginBegin posAmountInput" change="onCardAmountChange" value="{paymentViewModel>cardAmount}"
 										showValueStateMessage="{paymentViewModel>showAmountValueStateMessage}" valueState="{paymentViewModel>amountValueState}"
-										valueStateText="{i18n>amountValueStateText}" enabled="{paymentViewModel>isEditable}"/>
+										valueStateText="{i18n>amountValueStateText}" enabled="{paymentViewModel>isEditable}">
+										<layoutData>
+											<FlexItemData growFactor="0"/>
+										</layoutData>
+									</Input>
 								</HBox>
 								<Text text="{paymentViewModel>referenceNo}" class="sapUiSmallMargin" textAlign="Center"/>
 								<!--<Button icon="sap-icon://simple-payment" type="Transparent" class="posButton posButtonBlue" press="onCardPayment"-->

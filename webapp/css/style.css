@@ -1,4 +1,9 @@
 /* Enter your custom styles here */
+
+/* Center the Customers heading in the Master page */
+.sapMSplitContainerMaster .sapMPageHeader .sapMTitle {
+	padding-left: 6rem !important;
+}
 .masterListTileColor .sapMTextLineClamp{
 	color: #0070B1 !important;
 }
@@ -195,6 +200,9 @@ div.posSimpleForm  h5.sapUiFormTitleH5 {
 }
 .posCardNumber>.sapMFlexItem {
 	margin-right: 0.5rem !important;
+}
+.posAmountInput {
+	min-width: 8rem !important;
 }
 .posPaymentForm {
 	padding-top: 0rem !important;
