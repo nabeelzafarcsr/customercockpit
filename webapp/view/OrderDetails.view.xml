@@ -1,6 +1,6 @@
 <mvc:View id="posOrderDetails" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:uxap="sap.uxap" xmlns:f="sap.ui.layout.form"
 	controllerName="com.csr.customercockpit.controller.OrderDetails" xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page busy="{orderDetailViewModel>/busy}" busyIndicatorDelay="{orderDetailViewModel>/delay}" title="{i18n>orderDetails}"
+	<Page busy="{orderDetailViewModel>/busy}" busyIndicatorDelay="{orderDetailViewModel>/delay}" title="{i18n>orderDetails}" titleAlignment="Center"
 		showNavButton="true" navButtonPress="onNavBack">
 		<content>
 			<uxap:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" class="posPageLayout">

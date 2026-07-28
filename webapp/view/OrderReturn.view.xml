@@ -1,6 +1,6 @@
 <mvc:View id="csrOrderReturnId" controllerName="com.csr.customercockpit.controller.OrderReturn" xmlns:uxap="sap.uxap" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
 	 xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
-	<Page busy="{orderReturnViewModel>/busy}" busyIndicatorDelay="{orderReturnViewModel>/delay}" title="{i18n>orderReturn}" class="posOrder" showNavButton="true" navButtonPress="handleBack">
+	<Page busy="{orderReturnViewModel>/busy}" busyIndicatorDelay="{orderReturnViewModel>/delay}" title="{i18n>orderReturn}" titleAlignment="Center" class="posOrder" showNavButton="true" navButtonPress="handleBack">
 		<content>
 			<uxap:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" alwaysShowContentHeader="true">
 				<uxap:headerTitle>
