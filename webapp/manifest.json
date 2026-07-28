@@ -1,0 +1,294 @@
+{
+  "_version": "1.4.0",
+  "sap.app": {
+    "id": "com.csr.customercockpit",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "270.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "sap/opu/odata/sap/ZPOSITIVE_ORDER_SRV_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZPOSITIVE_BPOINT_SRV_SRV": {
+        "uri": "sap/opu/odata/sap/ZPOSITIVE_BPOINT_SRV_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZPOSITIVE_BPOINT_SRV_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    },
+    "sourceTemplate": {
+      "id": "servicecatalog.connectivityComponentForManifest",
+      "version": "0.0.0",
+      "toolsId": "09f9dd1a-737f-427b-94b9-7cf7251c8f4e"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "customercockpit-Display": {
+          "semanticObject": "customercockpit",
+          "action": "Display",
+          "title": "{{customercockpit-Display.flpTitle}}",
+          "icon": "sap-icon://customer-view",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://detail-view",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+    "supportedThemes": [
+      "sap_hcb",
+      "sap_belize"
+    ],
+    "fullWidth": true
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "com.csr.customercockpit.view.App",
+      "type": "XML",
+      "controlId": "idFullWidthAppControl",
+      "controlAggregation": "pages"
+    },
+    "dependencies": {
+      "minUI5Version": "1.71.76",
+      "libs": {
+        "sap.ui.core": {
+          "minVersion": "1.71.72"
+        },
+        "sap.m": {
+          "minVersion": "1.71.72"
+        },
+        "sap.ushell": {
+          "minVersion": "1.71.69"
+        },
+        "sap.collaboration": {
+          "minVersion": "1.71.72",
+          "lazy": true
+        }
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.csr.customercockpit.i18n.i18n"
+        }
+      },
+      "customercockpit": {
+        "dataSource": "mainService",
+        "preload": true
+      },
+      "authKey": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "OneWay",
+          "defaultCountMode": "Request"
+        },
+        "dataSource": "ZPOSITIVE_BPOINT_SRV_SRV",
+        "preload": true
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      },
+      "ZPOSITIVE_BPOINT_SRV_SRV": {
+        "dataSource": "ZPOSITIVE_BPOINT_SRV_SRV",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "com.csr.customercockpit.view",
+        "controlId": "idAppControl",
+        "controlAggregation": "detailPages",
+        "bypassed": {
+          "target": [
+            "master",
+            "notFound"
+          ]
+        },
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "master",
+          "target": [
+            "master",
+            "detail"
+          ]
+        },
+        {
+          "pattern": "Customer/{custContextPath}",
+          "name": "detail",
+          "target": [
+            "master",
+            "detail"
+          ]
+        },
+        {
+          "pattern": "documentFlow/{documentID},{custContextPath}",
+          "name": "documentFlow",
+          "target": [
+            "documentFlow"
+          ],
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        },
+        {
+          "pattern": "orderReturn/{documentID},{invoiceID},{custContextPath},:context:",
+          "name": "orderReturn",
+          "target": [
+            "orderReturn"
+          ],
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        },
+        {
+          "pattern": "changeOrder/{documentID},{custContextPath},:context:,{paymentInd}",
+          "name": "changeOrder",
+          "target": [
+            "changeOrder"
+          ],
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        },
+        {
+          "pattern": "payment/{documentID},{custContextPath},:paymentInd:,:?query:",
+          "name": "payment",
+          "target": [
+            "payment"
+          ],
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        },
+        {
+          "pattern": "orderDetails/{custContextPath},{documentID},{itemIndex},{paymentInd}",
+          "name": "orderDetails",
+          "target": [
+            "orderDetails"
+          ],
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        },
+        {
+          "pattern": "detailNoObjectsAvailable",
+          "name": "detailNoObjectsAvailable",
+          "target": [
+            "detailNoObjectsAvailable",
+            "master"
+          ]
+        }
+      ],
+      "targets": {
+        "master": {
+          "viewName": "Master",
+          "viewLevel": 1,
+          "viewId": "master",
+          "controlAggregation": "masterPages"
+        },
+        "detail": {
+          "viewName": "Detail",
+          "viewId": "detail",
+          "viewLevel": 2
+        },
+        "documentFlow": {
+          "viewName": "DocumentFlow",
+          "viewId": "csrDocFlowId",
+          "viewLevel": 3,
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        },
+        "orderReturn": {
+          "viewName": "OrderReturn",
+          "viewLevel": 4,
+          "viewId": "csrOrderReturnId",
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        },
+        "detailObjectNotFound": {
+          "viewName": "DetailObjectNotFound",
+          "viewId": "detailObjectNotFound"
+        },
+        "detailNoObjectsAvailable": {
+          "viewName": "DetailNoObjectsAvailable",
+          "viewId": "detailNoObjectsAvailable"
+        },
+        "notFound": {
+          "viewName": "NotFound",
+          "viewId": "notFound"
+        },
+        "changeOrder": {
+          "viewName": "ChangeOrder",
+          "viewId": "csrChangeOrderId",
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        },
+        "payment": {
+          "viewName": "Payment",
+          "viewId": "csrPaymentId",
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        },
+        "orderDetails": {
+          "viewName": "OrderDetails",
+          "viewId": "posOrderDetails",
+          "controlId": "idFullWidthAppControl",
+          "controlAggregation": "pages"
+        }
+      }
+    }
+  },
+  "sap.platform.hcp": {
+    "uri": "webapp",
+    "_version": "1.1.0"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "comcsrcustomercockpit"
+  }
+}

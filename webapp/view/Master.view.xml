@@ -1,0 +1,57 @@
+<mvc:View controllerName="com.csr.customercockpit.controller.Master" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m"
+	xmlns:semantic="sap.m.semantic">
+	<semantic:MasterPage id="page" title="{masterView>/title}">
+		<semantic:subHeader>
+			<Bar id="headerBar">
+				<contentMiddle>
+					<SearchField id="searchField" showRefreshButton="{= !${device>/support/touch} }" tooltip="{i18n>masterSearchTooltip}" width="100%"
+						search="onSearch"></SearchField>
+				</contentMiddle>
+			</Bar>
+		</semantic:subHeader>
+		<semantic:content>
+			<PullToRefresh id="pullToRefresh" visible="{device>/support/touch}" refresh="onRefresh"/>
+			<List id="list" items="{ path: '/CustomerHeaderSet'}" busyIndicatorDelay="{masterView>/delay}" noDataText="{masterView>/noDataText}"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true"
+				updateFinished="onUpdateFinished" selectionChange="onSelectionChange" class="masterRowHeight">
+				<items>
+					<ObjectListItem id="listItem" press="onSelect" title="{Businessname}" type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}"
+						class="masterListTileColor">
+						<firstStatus>
+							<ObjectStatus icon="sap-icon://favorite" class="FullStar" visible="{parts:[{path:'ZzclubGyprock'}], formatter:'.formatter.setClubGyprockStatusFullStar'}"
+								state="None"/>
+						</firstStatus>
+						<secondStatus>
+							<ObjectStatus icon="sap-icon://favorite" class="BlueStar" visible="{parts:[{path:'ZzclubGyprock'}], formatter:'.formatter.setClubGyprockStatusHalfStar'}"
+								state="None"/>
+						</secondStatus>
+						<attributes>
+							<ObjectAttribute id="csrCustomerId" text="{CustomerId}" class="masterListAttributeColor"/>
+							<ObjectAttribute id="itemCountObjectAttribute" text="{Telf1}" class="masterListAttributeColor"/>
+							<ObjectAttribute id="csrCityId" text="{City1}" class="masterListAttributeColor sapUiTinyMarginTop"/>
+							<core:ExtensionPoint name="csrMasterExtension1"/>
+						</attributes>
+					</ObjectListItem>
+				</items>
+			</List>
+		</semantic:content>
+		<semantic:sort>
+			<semantic:SortSelect change="handleSort">
+				<core:Item key="Erdat,D" text="{i18n>masterSort3}"/>
+				<core:Item key="Erdat,A" text="{i18n>masterSort33}"/>
+				<core:Item key="CustomerId,D" text="{i18n>masterSort1}"/>
+				<core:Item key="CustomerId,A" text="{i18n>masterSort11}"/>
+				<core:Item key="Businessname,D" text="{i18n>masterSort2}"/>
+				<core:Item key="Businessname,A" text="{i18n>masterSort22}"/>
+				<core:ExtensionPoint name="csrSortByExtension1"/>
+			</semantic:SortSelect>
+		</semantic:sort>
+		<semantic:group>
+			<semantic:GroupSelect change="handleGroup">
+				<core:Item key="None" text="{i18n>masterGroupNone}"/>
+				<core:Item key="City1" text="{i18n>masterGroup1}"/>
+				<core:ExtensionPoint name="csrGroupByMasterExtension1"/>
+			</semantic:GroupSelect>
+		</semantic:group>
+	</semantic:MasterPage>
+</mvc:View>

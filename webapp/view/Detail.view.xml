@@ -1,0 +1,109 @@
+<core:View xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	controllerName="com.csr.customercockpit.controller.Detail" xmlns:semantic="sap.m.semantic" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:forms="sap.ui.layout.form" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<m:Page id="csrDetailPageId" height="100%" enableScrolling="true" busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}"
+		visible="false">
+		<m:customHeader>
+			<m:Bar class="detail-page-header-bar">
+				<m:contentMiddle>
+					<m:Title text="{i18n>detailTitle}"></m:Title>
+				</m:contentMiddle>
+			</m:Bar>
+		</m:customHeader>
+		<m:content>
+			<ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" alwaysShowContentHeader="false" height="100%">
+				<headerTitle>
+					<ObjectPageHeader objectTitle="{CustomerId} - {Businessname}">
+						<actions>
+							<ObjectPageHeaderActionButton id="moneyBillId" icon="sap-icon://money-bills" type="Transparent" visible="false"
+								tooltip="{i18n>tollTipAccountCustomer}"/>
+							<ObjectPageHeaderActionButton id="clubGyprockAcId" icon="sap-icon://favorite" type="Transparent" visible="false"
+								tooltip="{i18n>tollTipActiveGyprock}"/>
+							<ObjectPageHeaderActionButton id="clubGyprockPcId" icon="sap-icon://favorite" type="Transparent" visible="false"
+								tooltip="{i18n>tollTipPotentialGyprock}"/>
+							<ObjectPageHeaderActionButton id="billingId" icon="sap-icon://simple-payment" type="Transparent" visible="false"
+								tooltip="{i18n>toolTipBilling}"/>
+							<ObjectPageHeaderActionButton id="shippingId" icon="sap-icon://shipping-status" type="Transparent" visible="false"
+								tooltip="{i18n>toolTipShipping}"/>
+							<core:ExtensionPoint name="csrDetailObjectPageHeaderExtension1"/>
+						</actions>
+					</ObjectPageHeader>
+				</headerTitle>
+				<!--headerContent>
+					<l:VerticalLayout>
+						<m:Label text="{CustomerId}"/>
+						<m:Label text="{Telf1}"/>
+						<m:Label text="{City1}"/>
+						<core:ExtensionPoint name="csrDetailHeaderContentExtension1"/>
+					</l:VerticalLayout>
+				</headerContent-->
+				<sections>
+					<ObjectPageSection>
+						<subSections>
+							<ObjectPageSubSection title="{i18n>gernalInformation}" mode="Expanded" class="detailSeactionTop">
+								<blocks>
+									<forms:SimpleForm class="detailGeneralInfoHeaderHeight">
+										<core:Title text=""/>
+										<m:Label text="{i18n>contactPerson}"/>
+										<m:Text text="{Title} {Firstname} {Lastname}" class="detailFontBold"/>
+										<m:Label text="{i18n>telephone}"/>
+										<m:Text text="{Telf1}" class="detailFontBold"/>
+										<m:Label text="{i18n>mobile}"/>
+										<m:Text text="{MobNumber}" class="detailFontBold"/>
+										<m:Label text="{i18n>email}"/>
+										<m:Link text="{SmtpAddr}" class="detailFontBold"/>
+										<core:Title text=""/>
+										<m:Label text="{i18n>address}"/>
+										<m:Text
+											text="{parts:[{path:'Street'},{path:'StrSuppl1'},{path:'City1'},{path:'PostCode1'}],formatter:'.formatter.concatenateAddressString'}"
+											class="detailFontBold"/>
+										<m:Label text="{i18n>paymentTerms}"/>
+										<m:Text text="{PaymentTerm}" class="detailFontBold"/>
+										<m:Label text="{i18n>customerNote}"/>
+										<m:Text text="{Notes}" class="detailFontBold"/>
+										<core:ExtensionPoint name="csrDetailSubSection1Extension1"/>
+									</forms:SimpleForm>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+					<ObjectPageSection>
+						<subSections>
+							<ObjectPageSubSection title="{i18n>documents}" mode="Expanded">
+								<blocks>
+									<m:VBox >
+										<core:ExtensionPoint name="csrDetailDocLineItemListExtension1"/>
+										<m:Toolbar>
+											<!--m:Title text="{detailView>/documentsCount}"/-->
+											<m:ToolbarSpacer/>
+											<m:SearchField id="detailSearchField" placeholder="{i18n>poSearch}" width="30%" search="onSearch"></m:SearchField>
+										</m:Toolbar>
+										<m:Table id="lineItemsList" updateFinished="onUpdateFinished" busyIndicatorDelay="{detailView>/delay}" growing="true"
+											growingScrollToLoad="true" class="sapUiResponsiveMargin lineItemsList">
+											<m:columns>
+												<m:Column demandPopin="true" minScreenWidth="Tablet" width="0.5rem"></m:Column>
+												<m:Column demandPopin="true" minScreenWidth="Tablet"><m:Text text="{i18n>documentNumber}"/></m:Column>
+												<m:Column demandPopin="true" minScreenWidth="Tablet"><m:Text text="{i18n>customerPO}"/></m:Column>
+												<m:Column demandPopin="true" minScreenWidth="Tablet"><m:Text text="{i18n>status}"/></m:Column>
+												<m:Column demandPopin="true" minScreenWidth="Tablet"><m:Text text="{i18n>createdBy}"/></m:Column>
+												<m:Column demandPopin="true" minScreenWidth="Tablet"><m:Text text="{i18n>createdOn}"/></m:Column>
+												<m:Column id="csrDetailLTId" demandPopin="true" minScreenWidth="Tablet"><m:Text text="{i18n>amount}"/></m:Column>
+											</m:columns>
+											<m:items></m:items>
+										</m:Table>
+									</m:VBox>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+				</sections>
+			</ObjectPageLayout>
+		</m:content>
+		<m:footer>
+			<m:Toolbar>
+				<m:ToolbarSpacer/>
+				<core:ExtensionPoint name="csrDetailFooterBtnExtension1"/>
+			</m:Toolbar>
+		</m:footer>
+	</m:Page>
+</core:View>

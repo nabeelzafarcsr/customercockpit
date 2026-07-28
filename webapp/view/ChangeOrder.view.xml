@@ -1,0 +1,266 @@
+<mvc:View id="csrChangeOrderId" controllerName="com.csr.customercockpit.controller.ChangeOrder" xmlns:uxap="sap.uxap" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Page busy="{changeOrderViewModel>/busy}" busyIndicatorDelay="{changeOrderViewModel>/delay}" title="{parts:[{path:'changeOrderViewModel>/salesOrderID'}, {path:'changeOrderHeaderModel>/orderTypeCode'},{path:'changeOrderViewModel>/paymentInd'}], formatter:'.formatter.changeOrderText'}" 
+	class="posOrder" showNavButton="true" navButtonPress="handleBack">
+		<content>
+			<Panel class="sapUiDemoFlexBoxSizeAdjustments posOrderShipmentPanel">
+				<FlexBox alignItems="Start">
+					<items>
+						<VBox>
+							<Label text="{parts:[{path:'changeOrderHeaderModel>/netAmount'}], formatter:'.formatter.formatItemCurrency'}" design="Bold" width="100%" class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="{i18n>netAmount}" width="100%" class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>plus}" design="Bold" width="100%" class="sapUiSmallMarginEnd specialSign" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{parts:[{path:'changeOrderHeaderModel>/freightCharges'}], formatter:'.formatter.formatItemCurrency'}" design="Bold" width="100%" class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="{i18n>freightCharges}" width="100%" class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>plus}" design="Bold" width="100%" class="sapUiSmallMarginEnd specialSign" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{parts:[{path:'changeOrderHeaderModel>/taxAmount'}], formatter:'.formatter.formatItemCurrency'}" design="Bold" width="100%" class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="{i18n>taxAmount}" width="100%" class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>equal}" design="Bold" width="100%" class="sapUiSmallMarginEnd specialSign" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{parts:[{path:'changeOrderHeaderModel>/totalAmount'}], formatter:'.formatter.formatItemCurrency'}" design="Bold" width="100%" class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="{i18n>totalAmount}" width="100%" class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="" design="Bold" width="100%" class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="" width="100%" class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+					</items>
+				</FlexBox>
+			</Panel>
+			<uxap:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" class="posPageLayout">
+				<uxap:sections height="100%">
+					<uxap:ObjectPageSection title="{i18n>orderHeader}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title=" ">
+								<uxap:blocks>
+									<f:SimpleForm minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4"
+										emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" class="posSimpleForm">
+										<f:content>
+											<!--core:Title text=""/-->
+											<Label text="{i18n>customer}" class="posLabel"/>
+											<Text text="{changeOrderHeaderModel>/customer}"/>
+											<Label text="{i18n>shipTo}" class="posLabel"/>
+											<Text text="{changeOrderHeaderModel>/headerShipTo}"/>
+											<Label text="{i18n>reqDeliveryDate}" class="posLabel"/>
+											<Text text="{parts:[{path:'changeOrderHeaderModel>/requestedDeliveryDate'}], formatter:'.formatter.dateFormatting'}"/>
+											<Label text="{i18n>customerPO}" class="posLabel sapUiSmallMarginTop" required="{parts:[{path:'changeOrderViewModel>/isPORequired'}], formatter:'.formatter.isPORequired'}"/>
+											<Input change="validateCustomerPO" value="{changeOrderHeaderModel>/customerPO}" showValueStateMessage="{changeOrderViewModel>/customerPOShowValueStateMessage}"
+												valueState="{changeOrderViewModel>/customerPOValueState}" valueStateText="{i18n>validCustomerPOMsg}" editable="{parts:[{path:'changeOrderHeaderModel>/headerStatusCode'},{path:'changeOrderViewModel>/paymentInd'}], formatter:'.formatter.enablePurchaseOrder'}"/>
+											<Label text="Weight" class="posLabel"/>
+											<Text text="{parts:[{path:'changeOrderHeaderModel>/weight'},{path:'changeOrderHeaderModel>/weightUnit'}], formatter:'.formatter.formatWeightAndArea'}"/>
+											<Label text="Area" class="posLabel"/>
+											<Text text="{parts:[{path:'changeOrderHeaderModel>/area'},{path:'changeOrderHeaderModel>/areaUnit'}], formatter:'.formatter.formatWeightAndArea'}"/>
+											<core:Title text=""/>
+											<Label text="{i18n>orderType}"/>
+											<Text text="{changeOrderHeaderModel>/orderType}"/>
+											<Label text="{i18n>deliveryPlant}"/>
+											<Text text="{changeOrderHeaderModel>/deliveryPlantDesc} ({changeOrderHeaderModel>/deliveryPlantCode})"/>
+										</f:content>
+									</f:SimpleForm>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					<uxap:ObjectPageSection title="{i18n>items}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title="{i18n>items}">
+								<uxap:blocks>
+									<Table id="orderItems" items="{changeOrderHeaderModel>/ItemSet}" itemPress="onItemPress" class="orderItemsTable" >
+										<headerToolbar>
+											<Toolbar>
+												<Text text="{i18n>items} ({changeOrderHeaderModel>/totalItemCount})" class="posTableHeader"/>
+												<ToolbarSpacer></ToolbarSpacer>
+												<Button tooltip="{i18n>addItemTooltip}" icon="sap-icon://add" press="onAddItem" enabled="{parts:[{path:'changeOrderHeaderModel>/headerStatusCode'},{path:'changeOrderViewModel>/paymentInd'}], formatter:'.formatter.enableAddButton'}"/>
+											</Toolbar>
+										</headerToolbar>
+										<columns>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="8%" visible="{parts:[{path:'device>/orientation/landscape'}], formatter:'.formatter.displayItemText'}"><Text text="{i18n>itemNo}"/></Column>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="10%"><Text text="{i18n>material}"/></Column>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="10%" hAlign="Center"><Text text="{i18n>quantity}"/></Column>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="9%"  hAlign="Center"><Text text="{i18n>confirmedQty}"/></Column>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="12%" hAlign="Center" visible="{parts:[{path:'changeOrderHeaderModel>/orderTypeCode'}], formatter:'.formatter.enableField'}"><Text text="{i18n>deliveryDate}"/></Column>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="10%" hAlign="Center"><Text text="{i18n>price}"/></Column>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="auto" hAlign="Center"><Text text="{i18n>discount}"/></Column>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="8%" hAlign="Center"><Text text="{i18n>value}"/></Column>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="6%" hAlign="Center" visible="{parts:[{path:'changeOrderHeaderModel>/orderTypeCode'}], formatter:'.formatter.enable3rdParty'}"><Text text="{i18n>3party}"/></Column>
+											<Column minScreenWidth="Desktop" demandPopin="true" width="4%" hAlign="Center"></Column>
+										</columns>
+										<items>
+											<ColumnListItem type="Navigation" vAlign="Top">
+												<cells>
+													<VBox visible="{parts:[{path:'device>/orientation/landscape'}], formatter:'.formatter.displayItemText'}">
+														<Text text="{changeOrderHeaderModel>itemID}"/>
+														<ObjectStatus text="{changeOrderHeaderModel>itemStatusDesc}" state="{parts:[{path:'changeOrderHeaderModel>itemStatusCode'}], formatter:'.formatter.formatItemStatus'}" />
+													</VBox>
+													<VBox>
+														<VBox visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'},{path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isQuantityEligibleForEdit'}">
+															<Input showValueHelp="true" valueHelpRequest="onMaterialValueHelpTapped" value="{changeOrderHeaderModel>materialNo}" submit="onMaterialSubmit"/>
+															<Text text="{changeOrderHeaderModel>materialDesc}"/>
+														</VBox>
+														<VBox visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'},{path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isQuantityEligibleForDisplay'}">
+															<Text text="{changeOrderHeaderModel>materialNo}"/>
+															<Text text="{changeOrderHeaderModel>materialDesc}"/>
+														</VBox>
+													</VBox>
+													
+													<HBox justifyContent="Center">
+														<Input type="Number" textAlign="End" change="onQuantityChange" submit="onQuantitySubmit" description="{changeOrderHeaderModel>stockUnit}" fieldWidth="60%" 
+														value="{changeOrderHeaderModel>quantity}"  
+														showValueStateMessage="{changeOrderHeaderModel>quantityShowValueStateMessage}"
+														valueState="{changeOrderHeaderModel>quantityValueState}" valueStateText="{i18n>quantityFieldCheck}"
+														visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'}, {path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isQuantityEligibleForEdit'}"/>
+													
+														<Text class="sapUiSmallMargin" text="{parts:[{path:'changeOrderHeaderModel>quantity'}], formatter:'.formatter.formatQty'}"
+														visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'}, {path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isQuantityEligibleForDisplay'}"/>
+														<Text text="{changeOrderHeaderModel>stockUnit}" class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+														visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'}, {path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isQuantityEligibleForDisplay'}"/>
+													
+													</HBox>
+													<HBox justifyContent="Center" class="sapUiSmallMarginTop">
+														<Text text="{parts:[{path:'changeOrderHeaderModel>confirmedQuantity'},{path:'changeOrderHeaderModel>stockUnit'}], formatter:'.formatter.formatItemConfQty'}"/>
+														<core:Icon src="sap-icon://alert" color="#FF0000" class="sapUiTinyMarginBegin" visible="{parts:[{path:'changeOrderHeaderModel>quantity'},{path:'changeOrderHeaderModel>confirmedQuantity'}], formatter:'.formatter.displayAlertIcon'}"/>
+													</HBox>
+													<HBox justifyContent="Center" visible="{parts:[{path:'changeOrderHeaderModel>/orderTypeCode'}], formatter:'.formatter.enableField'}">
+														<DatePicker displayFormat="dd/MM/YYYY" value="{changeOrderHeaderModel>deliveryDateValue}" dateValue="{changeOrderHeaderModel>deliveryDate}"
+														showValueStateMessage="{changeOrderHeaderModel>deliveryDateShowValueStateMessage}"
+														valueState="{changeOrderHeaderModel>deliveryDateValueState}" valueStateText="{i18n>deliveryDateFieldCheck}"
+														change="onDeliveryDateChange" visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'}, {path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isItemEligibleForEdit'}"/>
+														<Text class="sapUiSmallMargin" text="{parts:[{path:'changeOrderHeaderModel>deliveryDate'}], formatter:'.formatter.dateFormatting'}"
+														visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'}, {path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isItemEligibleForDisplay'}"/>
+													</HBox>
+													<HBox class="sapUiSmallMarginTop" justifyContent="Center">
+														<Label text="{parts:[{path:'changeOrderHeaderModel>currencyUnit'}], formatter:'.formatter.displayCurrencyUnit'}" class="posCurrency"/>
+														<Text text="{changeOrderHeaderModel>unitPrice}"/>
+													</HBox>
+													<HBox justifyContent="Center">
+														<Input type="Number" submit="onDiscountSubmit" value="{changeOrderHeaderModel>discount}"
+														visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'}, {path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isItemEligibleForEdit'}"/>
+														<Select class="sapUiTinyMarginBegin posDiscount" selectedKey="{changeOrderHeaderModel>discountType}"
+														visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'}, {path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isItemEligibleForEdit'}"
+														change="onDiscountTypeChange">
+															<core:Item key="%" text="%"></core:Item>
+															<core:Item key="AUD" text="$"></core:Item>
+														</Select>
+														<Select class="sapUiTinyMarginBegin posDiscount" items="{changeOrderHeaderModel>salesUnitList}" selectedKey="{changeOrderHeaderModel>unitOfMeasure}"
+															enabled="{parts:[{path:'changeOrderHeaderModel>salesUnitList'},{path:'changeOrderHeaderModel>discountType'}], formatter:'.formatter.displaySalesUnitList'}" 
+															visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'}, {path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.isItemEligibleForEdit'}"
+															change="onUnitOfMeasureChange">
+															<core:Item  text="{changeOrderHeaderModel>salesUnitType}"  key="{changeOrderHeaderModel>salesUnitType}"/>
+														</Select>
+														<Text class="sapUiSmallMargin" text="{parts:[{path:'changeOrderHeaderModel>discount'},{path:'changeOrderHeaderModel>discountType'},{path:'changeOrderHeaderModel>unitOfMeasure'}], formatter:'.formatter.formatDiscount'}"
+														visible="{parts:[{path:'changeOrderHeaderModel>headerStatusCode'},{path:'changeOrderViewModel>/paymentInd'}], formatter:'.formatter.isItemEligibleForDisplay'}"/>
+													</HBox>
+													<HBox class="sapUiSmallMarginTop" justifyContent="Center">
+														<Label text="{parts:[{path:'changeOrderHeaderModel>currencyUnit'}], formatter:'.formatter.displayCurrencyUnit'}" class="posCurrency"/>
+														<Text text="{parts:[{path:'changeOrderHeaderModel>kzwi2'}], formatter:'.formatter.formatItemCurrency'}"/>
+													</HBox>
+													<CheckBox selected="{changeOrderHeaderModel>Is3rdParty}" editable="false"/>
+													<Button icon="sap-icon://delete" type="Transparent" class="posDeleteButton posButtonRed" press="onItemDelete"
+														visible="{parts:[{path:'changeOrderHeaderModel>itemStatusCode'},{path:'changeOrderHeaderModel>materialDesc'},{path:'changeOrderViewModel>/paymentInd'},{path: 'changeOrderHeaderModel>Is3rdParty'}], formatter:'.formatter.displayDeleteValue'}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+				</uxap:sections>
+			</uxap:ObjectPageLayout>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="{parts:[{path:'changeOrderHeaderModel>/orderTypeCode'}], formatter:'.formatter.updateOrderText'}" type="Emphasized" press="handleUpdateOrder" visible="{parts:[{path:'changeOrderHeaderModel>/headerStatusCode'},{path:'changeOrderViewModel>/paymentInd'}], formatter:'.formatter.enableUpdateOrderButton'}"/>
+				<Button text="{i18n>cancel}" type="Reject" press="handleCancel" visible="true"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

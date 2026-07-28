@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZPOSITIVE_BPOINT_SRV_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <ComplexType Name="AuthrKey">
+                <Property Name="AuthKey" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="Authorization Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="GuId" Type="Edm.String" Nullable="false" MaxLength="22" sap:label="GUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </ComplexType>
+            <ComplexType Name="SubmitResponse">
+                <Property Name="ResMsg" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Response" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Amount" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Receipt" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TransNo" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResGuId" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SalesOrg" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </ComplexType>
+            <EntityContainer Name="ZPOSITIVE_BPOINT_SRV_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <FunctionImport Name="GetAuthKey" ReturnType="ZPOSITIVE_BPOINT_SRV_SRV.AuthrKey" m:HttpMethod="GET">
+                    <Parameter Name="Amount" Type="Edm.String" Mode="In"/>
+                    <Parameter Name="Kunnr" Type="Edm.String" Mode="In" MaxLength="10"/>
+                    <Parameter Name="Vkorg" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Werks" Type="Edm.String" Mode="In" MaxLength="4"/>
+                </FunctionImport>
+                <FunctionImport Name="ActionSubmit" ReturnType="ZPOSITIVE_BPOINT_SRV_SRV.SubmitResponse" m:HttpMethod="POST">
+                    <Parameter Name="Amount" Type="Edm.String" Mode="In"/>
+                    <Parameter Name="Vbeln" Type="Edm.String" Mode="In" MaxLength="10"/>
+                    <Parameter Name="AuthKey" Type="Edm.String" Mode="In" MaxLength="50"/>
+                    <Parameter Name="GuId" Type="Edm.String" Mode="In" MaxLength="22"/>
+                    <Parameter Name="SalesOrg" Type="Edm.String" Mode="In" MaxLength="4" Nullable="true"/>
+                    <Parameter Name="Plant" Type="Edm.String" Mode="In" MaxLength="4" Nullable="true"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="https://appsapfioride.ap20.hana.ondemand.com:44303/sap/opu/odata/sap/ZPOSITIVE_BPOINT_SRV_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://appsapfioride.ap20.hana.ondemand.com:44303/sap/opu/odata/sap/ZPOSITIVE_BPOINT_SRV_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

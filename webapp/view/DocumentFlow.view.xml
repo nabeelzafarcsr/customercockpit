@@ -1,0 +1,34 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns="sap.suite.ui.commons"
+	controllerName="com.csr.customercockpit.controller.DocumentFlow" xmlns:html="http://www.w3.org/1999/xhtml">
+	<m:Page enableScrolling="true" busy="{docFlowView>/busy}" busyIndicatorDelay="{docFlowView>/delay}">
+		<m:customHeader>
+			<m:Bar class="detail-page-header-bar">
+				<m:contentLeft>
+					<m:Button icon="sap-icon://nav-back" press="handleBack" />
+				</m:contentLeft>
+				<m:contentMiddle>
+					<m:Title text="{i18n>dfTitle}"></m:Title>
+				</m:contentMiddle>
+			</m:Bar>
+		</m:customHeader>
+		<m:content>
+			<m:Panel >
+				<m:VBox>
+					<ProcessFlow id="processflow1" scrollable="true" wheelZoomable="false" foldedCorners="true" nodePress="onNodePress"
+						nodeTitlePress="onNodeTitlePress" nodes="{documentProcess>/nodes}" lanes="{documentProcess>/lanes}">
+						<nodes>
+							<ProcessFlowNode laneId="{documentProcess>lane}" nodeId="{documentProcess>id}" title="{documentProcess>title}" titleAbbreviation="{documentProcess>titleAbbreviation}" isTitleClickable="{documentProcess>isTitleClickable}"
+								children="{documentProcess>children}" state="{documentProcess>state}" stateText="{documentProcess>stateText}" texts="{documentProcess>texts}" highlighted="true" focused="true"/>
+						</nodes>
+						<lanes>
+							<ProcessFlowLaneHeader laneId="{documentProcess>id}" iconSrc="{documentProcess>icon}" text="{documentProcess>label}" position="{documentProcess>position}"/>
+						</lanes>
+					</ProcessFlow>
+				</m:VBox>
+			</m:Panel>
+		</m:content>
+		<m:footer>
+			<m:Toolbar></m:Toolbar>
+		</m:footer>
+	</m:Page>
+</mvc:View>

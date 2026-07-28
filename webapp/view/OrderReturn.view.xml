@@ -1,0 +1,114 @@
+<mvc:View id="csrOrderReturnId" controllerName="com.csr.customercockpit.controller.OrderReturn" xmlns:uxap="sap.uxap" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	 xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Page busy="{orderReturnViewModel>/busy}" busyIndicatorDelay="{orderReturnViewModel>/delay}" title="{i18n>orderReturn}" class="posOrder" showNavButton="true" navButtonPress="handleBack">
+		<content>
+			<uxap:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" alwaysShowContentHeader="true">
+				<uxap:headerTitle>
+					<uxap:ObjectPageHeader objectTitle="Invoice # {orderReturnModel>/invoiceID}">
+						<ObjectStatus class="posAmountStatus" text="{parts:[{path:'orderReturnModel>/DocumentCurrency'},{path:'orderReturnModel>/TotalAmount'}], formatter:'.formatter.formatCurrency'}" state="Success"/>
+					</uxap:ObjectPageHeader>
+				</uxap:headerTitle>
+				<uxap:headerContent>
+					<l:VerticalLayout>
+						<Label text="{orderReturnModel>/SalesOrderTypeDescr}"/>
+						<Label text="{orderReturnModel>/SoldToPartyDescr}"/>
+						<Label text="Customer PO # {orderReturnModel>/PurchaseOrderNumber}"/>
+					</l:VerticalLayout>
+				</uxap:headerContent>
+				<uxap:sections height="100%">
+					<uxap:ObjectPageSection title="{i18n>return}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title=" ">
+								<uxap:blocks>
+									<f:SimpleForm minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4"
+										emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2" class="posSimpleForm">
+										<f:content>
+											<core:Title text=""/>
+											<Label text="{i18n>reasonForReturn}" required = "true" class="posLabel"/>
+											<!--Start of changes by C5253525 #179485 / 2018 / ePOS - Return Order - Reason for Return-->
+												<Select width="100%" selectedKey="{orderReturnModel>/returningReason}" forceSelection="false"
+												items="{path: '/GetGenericF4Set', filters: [{path: 'EntityType', operator: 'EQ', value1: 'Header'},{path: 'PropertyName', operator: 'EQ', value1: 'Augru'}]}">
+													<!--End of changes by C5253525 #179485 / 2018 / ePOS - Return Order - Reason for Return-->
+													<!--Start of commenting by C5253525 #179485 / 2018 / ePOS - Return Order - Reason for Return-->
+												<!--	<Select width="100%" selectedKey="{orderReturnModel>/returningReason}" -->
+												<!--items="{path: '/GetGenericF4Set', filters: [{path: 'EntityType', operator: 'EQ', value1: 'Header'},{path: 'PropertyName', operator: 'EQ', value1: 'Augru'}]}">-->
+												<!--Start of commenting by  #179485 / 2018 / ePOS - Return Order - Reason for Return-->
+												<core:Item key="{Key}" text="{Value}"/>
+											</Select>
+											<Label text="{i18n>returnDate}" class="posLabel"/>
+											<DatePicker displayFormat="dd/MM/YYYY" editable="false" dateValue="{orderReturnModel>/returnDate}" 
+												showValueStateMessage="{orderReturnViewModel>/showValueStateMessage/returnDate}"
+												valueState="{orderReturnViewModel>/valueState/returnDate}" valueStateText="{cartViewModel>/valueStateText/returnDate}"/>
+											<core:Title text=""/>
+										</f:content>
+									</f:SimpleForm>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					<uxap:ObjectPageSection title="{i18n>items}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title="{i18n>items}">
+								<uxap:blocks>
+									<Table id="returnOrderItems" items="{orderReturnModel>/ItemSet}" mode="MultiSelect" itemPress="onItemPress" class="orderItemsTable" selectionChange="rowSelectionChanged" selectAll="true"
+										updateFinished="onUpdateFinished">
+										<headerToolbar>
+											<Toolbar>
+												<Text text="{i18n>items} ({orderReturnViewModel>/selectedCount})" class="posTableHeader"/>
+												<ToolbarSpacer></ToolbarSpacer>
+											</Toolbar>
+										</headerToolbar>
+										<columns>
+											<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center"><Text text="{i18n>item}"/></Column>
+											<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center"><Text text="{i18n>material}"/></Column>
+											<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center"><Text text="{i18n>description}"/></Column>
+											<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" width="5rem"><Text text="{i18n>invoiceQuantity}"/></Column>
+											<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" width="5rem"><Text text="{i18n>quantity}"/></Column>
+											<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center"><Text text="{i18n>price}"/></Column>
+											<Column demandPopin="true" minScreenWidth="Tablet" width="3rem" hAlign="Center" visible="{parts:[{path:'orderReturnModel>/orderTypeCode'}], formatter:'.formatter.enable3rdParty'}"><Text text="{i18n>3party}"/></Column>
+											<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center"><Text text="{i18n>blockSale}"/></Column>
+										</columns>
+										<items>
+											<ColumnListItem vAlign="Middle">
+												<cells>
+													<Text text="{orderReturnModel>ItemID}"/>
+													<Label text="{orderReturnModel>MaterialID}" design="bold" class="posMaterial"/>
+													<Text text="{orderReturnModel>ItemDescr}"/>
+													<Text text="{parts:[{path:'orderReturnModel>Qty'}], formatter:'.formatter.formatQty'}"/>
+													<Input value="{orderReturnModel>OrderQty}" textAlign="End" change="onQuantityChange" 
+														showValueStateMessage="{orderReturnModel>quantityShowValueStateMessage}"
+														valueState="{orderReturnModel>quantityValueState}" valueStateText="{i18n>returnOrderQuantityField}"/>
+													<Text text="{parts:[{path:'orderReturnModel>DocumentCurrency'},{path:'orderReturnModel>NetAmount'}], formatter:'.formatter.formatCurrency'}"/>
+													<CheckBox selected="{orderReturnModel>Is3rdParty}" editable="false"/>
+												   <SegmentedButton width="100%"  selectedKey="{orderReturnModel>IsBlocked}">
+														<items>
+															<SegmentedButtonItem text="{i18n>block}" key="X"  press="onBlockPress"/>
+															<SegmentedButtonItem text="{i18n>sale}"  key=""   press="onSalePress"/>
+														</items>
+													</SegmentedButton>
+													<!--SegmentedButton width="100%" selectedKey="{orderReturnModel>IsBlocked}">
+														<items>
+															<SegmentedButtonItem text="{i18n>block}" key="X"/>
+															<SegmentedButtonItem text="{i18n>sale}" key=""/>
+														</items>
+													</SegmentedButton-->
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+				</uxap:sections>
+			</uxap:ObjectPageLayout>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button id="idReturn" text="{i18n>return}" type="Emphasized" press="handleReturnOrder" visible="true" enabled="true"/>
+				<Button text="{i18n>cancel}" type="Reject" press="handleCancel" visible="true"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

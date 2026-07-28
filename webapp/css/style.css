@@ -1,0 +1,262 @@
+/* Enter your custom styles here */
+.masterListTileColor .sapMTextLineClamp{
+	color: #0070B1 !important;
+}
+
+.masterListAttributeColor .sapMText{
+	color: #666666 !important;
+}
+
+.masterRowHeight >ul >li {
+    padding-top: .5rem !important;
+}
+
+.sapUiFormResLayout .sapUiRFLRow>.sapUiRFLContainer.sapUiRFLFullLength>.sapUiRFLContainerContent>.sapUiRLElement>.sapUiRFLRow:last-child>.sapUiRFLFullLength:last-child {
+    padding-bottom: 0rem !important;
+}
+.detailHeaderBackground .sapMOH.sapMOHBgTransparent, .sapMOHC.sapMOHBgTransparent{
+	background-color: #eff4f9 !important;
+}
+
+.detailsDocListOptionHeader .sapMBar{
+	visibility: hidden !important;
+	height: 0.0rem !important;
+}
+.detailFontBold {
+	font-weight:bold !important;
+}
+.zeroHeight{
+	 height:0px !important;
+	 
+}
+
+.detailGeneralInfoHeaderHeight h5.sapUiFormTitleH5{
+	height: 0rem !important;
+}
+
+.detailGeneralInfoHeaderHeight{
+	margin-top: -1rem !important;
+}
+
+.detailSeactionTop .sapUiResponsiveMargin{
+	margin-top: 10px !important;
+}
+
+.detailBoldFont{
+	font-weight: bold !important;
+}
+.changeOrderHeaderFont > div:first-child > span{
+	font-weight: bold !important;
+	font-size: 1rem;
+}
+
+.changeOrderOperFont > div:first-child > span{
+	font-size: 1.2rem !important;
+	
+	
+}
+
+.changeOrderOperFont{
+	font-size: 2rem !important;
+}
+.changeOrderBoxBorderColor {
+	border-style: solid !important;
+}
+
+.changeOrderDeleteBtnColor > span > span{
+	color: red !important;
+	font-weight: bold !important;
+	font-size: 2.0rem !important;
+}
+.posTATPActiveRed .sapMBtnIcon {
+                color: #FF5733 !important;
+}
+ 
+.posTATPInActiveRed .sapMBtnIcon {
+                color: #FF5733 !important;
+                opacity: 0.6 !important;
+}
+ 
+.posTATPActiveYellow .sapMBtnIcon {
+                color: #FFFF00 !important;
+}
+ 
+.posTATPInActiveYellow .sapMBtnIcon {
+                color: #FFFF00 !important;
+                opacity: 0.6 !important;
+ 
+}
+ 
+.posTATPActiveGreen .sapMBtnIcon {
+                color: #008000 !important;
+}
+
+.orderRetunHeaderValue span:nth-child(2) > div > span{
+	font-weight: bold !important;
+	font-size: 1.5rem !important;
+}
+.orderRetunHeaderValue span:nth-child(2) > div{
+	padding: 15px;
+}
+
+.documentFlowDisplayWidth div:nth-child(1)> table{
+	width:100% !important;
+}
+
+.documentFlowDisplayWidth .suiteUiProcessFlowLaneHeaderContainer{
+	width: 50% !important;
+}
+.popoverBackgroundColor li{
+	    background-color: #346187 !important;
+}
+.popoverListItemFont .sapMSLITitleOnly{
+	color: white !important;
+}
+.popoverListItemFont .sapMSLIImgIcon{
+	color: white !important;
+}
+
+
+.clubGyprockIconRedColor > span > span{
+	color: red !important;
+	font-size: 1.5rem !important;
+}
+.clubGyprockIconBlueColor > span > span{
+	color: #346187 !important;
+	font-size: 1.5rem !important;
+}
+
+.clubGyprockIconHalfRedColor > span > span{
+	-webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: red;
+    background: -webkit-gradient(linear, left top, right top, from(rgb(255, 0, 0)), color-stop(50%, rgb(255, 0, 0)), color-stop(50%, rgb(255, 255, 255)), to(rgb(255, 255, 255)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.5rem !important;
+}
+.paymentHeaderWidth > div{
+	    min-width: 100% !important;
+	    padding: 0rem !important;
+}
+
+.paymentHeaderLeftAlign .sapUxAPObjectPageHeaderContent{
+	padding-left: 0rem !important;
+	padding-right: 1rem !important;
+}
+
+.posOrder > section {
+	overflow-y: hidden !important;
+}
+.orderItemsTable {
+	padding-bottom: 5rem !important;
+}
+
+.orderItemsTable .sapMLIBImgNav {
+	font-size: 1.5rem !important;
+}
+.headerCurrency {
+	font-size: 1rem !important;
+}
+
+.specialSign {
+	font-size: 2.5rem !important;
+}
+
+div.posPageLayout div.sapUxAPObjectPageHeaderContent {
+	padding-left: 0rem !important;
+}
+div.posSimpleForm  h5.sapUiFormTitleH5 {
+	height: 0rem !important;
+}
+.posLabel {
+	white-space: normal !important;
+}
+
+.posCurrency {
+	margin-right: 0.25rem !important;
+}
+.posButton .sapMBtnIcon {
+	font-size: 2rem !important;
+	padding-right: 0.5rem !important;
+}
+
+.posDeleteButton .sapMBtnIcon {
+	font-size: 1.5rem !important;
+	padding-right: 0.5rem !important;
+}
+
+.posButtonRed .sapMBtnIcon {
+	color: #FF0000 !important;
+	opacity: 0.6 !important;
+}
+.posMaterial {
+	font-size: 1rem !important;
+	color: #0070B1 !important;
+}
+.posCardNumber>.sapMFlexItem {
+	margin-right: 0.5rem !important;
+}
+.posPaymentForm {
+	padding-top: 0rem !important;
+	background-color: white !important;
+	padding-bottom: 2rem !important;
+}
+
+.posPaymentForm  h5.sapUiFormTitleH5 {
+	height: 0rem !important;
+}
+
+.posPaymentPageContent > section {
+	padding-bottom: 5rem !important;
+}
+.posEmailReceipt > .sapMFlexItem:nth-child(2n) {
+	width: 90% !important;
+}
+.posEmailInput > .sapMInputBaseInner {
+	width: 50% !important;
+}
+
+.sapMPanelContent:not(.sapMPanelBGTransparent) {
+    border-bottom: 0px solid #e2e2e2 !important;
+}
+.posDiscount>.sapMSelectList {
+	min-width: 4rem !important;
+}
+.FullStar > span > span {
+    color: #FF0000 !important;
+    font-size: 1.7rem !important;
+}
+
+.BlueStar > span > span {
+    color: #0070B1 !important;
+    font-size: 1.7rem !important;
+}
+.posSegmentButton > .sapMSegBBtn {
+	font-size: 0.75rem !important;
+}
+
+.posSegmentButton > li:nth-last-child(1), .posSegmentButton > li:nth-last-child(2) {
+	visibility : hidden !important;
+}
+
+.posSegmentButton > li:nth-child(1), .posSegmentButton > li:nth-child(2) {
+	width : 50% !important;
+}
+
+.posSegmentButton > li:nth-child(2) {
+	border-top-right-radius: 0.2rem !important;
+    border-bottom-right-radius: 0.2rem !important;
+	border-right: 1px solid #bfbfbf !important;
+}
+
+.orderItemsTable .sapMLIBImgNav {
+	width: 0px !important;
+}
+.orderItemsTable .sapMListTblNavCol {
+	width: 0px !important;
+	visibility: hidden !important;
+}
+
+.lineItemsList .sapMLnk {
+	white-space: normal !important;
+}

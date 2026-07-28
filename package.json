@@ -1,0 +1,44 @@
+{
+  "name": "com.csr.customercockpit",
+  "version": "0.0.1",
+  "private": true,
+  "sapux": true,
+  "sapuxLayer": "CUSTOMER_BASE",
+  "description": "",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "scripts": {
+    "lint": "eslint ./",
+    "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateCachebusterInfo",
+    "build:mta": "rimraf resources mta_archives && mbt build",
+    "undeploy": "cf undeploy comcsrcustomercockpit --delete-services --delete-service-keys --delete-service-brokers",
+    "start_old": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#app-tile\"",
+    "start-local_old": "fiori run --config ./ui5-local.yaml --open \"test/flpSandboxMockServer.html?sap-ui-xx-viewCache=false#app-tile\"",
+    "start-noflp_old": "fiori run --open \"index.html?sap-ui-xx-viewCache=false\"",
+    "start-variants-management_old": "fiori run --open \"preview.html?sap-ui-xx-viewCache=false&fiori-tools-rta-mode=true&sap-ui-rta-skip-flex-validation=true#preview-app\"",
+    "build_old": "ui5 build -a --clean-dest --include-task=generateCachebusterInfo",
+    "deploy_old": "fiori cfDeploy",
+    "deploy-config_old": "fiori add deploy-config",
+    "start-mock_old": "fiori run --open \"test/flpSandboxMockServer.html?sap-ui-xx-viewCache=false#app-tile\"",
+    "start": "fiori run --open \"test/flpSandbox.html?sap-client=030&sap-ui-xx-viewCache=false#app-tile\"",
+    "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flpSandboxMockServer.html?sap-client=030&sap-ui-xx-viewCache=false#app-tile\"",
+    "start-noflp": "fiori run --open \"index.html?sap-client=030&sap-ui-xx-viewCache=false\"",
+    "start-variants-management": "fiori run --open \"preview.html?sap-client=030&sap-ui-xx-viewCache=false&fiori-tools-rta-mode=true&sap-ui-rta-skip-flex-validation=true#preview-app\"",
+    "build": "ui5 build -a --clean-dest --include-task=generateCachebusterInfo",
+    "deploy": "fiori cfDeploy",
+    "deploy-config": "fiori add deploy-config",
+    "start-mock": "fiori run --open \"test/flpSandboxMockServer.html?sap-client=030&sap-ui-xx-viewCache=false#app-tile\""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@ui5/cli": "^4.0.0",
+    "@sap/ux-ui5-tooling": "1",
+    "rimraf": "6.0.1",
+    "ui5-task-zipper": "^3.4.x",
+    "mbt": "^1.2.49"
+  }
+}

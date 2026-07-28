@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ResponsivePopover
+        title="Menu"
+        placement="Bottom" class="detailsDocListOptionHeader">
+        <content>
+            <List  includeItemInSelection="true" press="handlePopoverInvoiceList" items="{docFlowDialog>/}" class="popoverBackgroundColor">
+            	
+                <StandardListItem 
+                    title="{docFlowDialog>text}"
+                    icon="{docFlowDialog>iconUrl}"
+                    type="Active"
+                    press="handlePopoverInvoiceList"
+                    class="popoverListItemFont"/>            
+            </List>            
+        </content>
+    </ResponsivePopover>
+</core:FragmentDefinition>

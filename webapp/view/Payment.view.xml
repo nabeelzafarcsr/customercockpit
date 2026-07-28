@@ -1,0 +1,201 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	controllerName="com.csr.customercockpit.controller.Payment" xmlns:uxap="sap.uxap" xmlns:html="http://www.w3.org/1999/xhtml" height="100%"
+	xmlns:custom="com.csr.customercockpit.customcontrols">
+	<Page busy="{paymentViewModel>/busy}" busyIndicatorDelay="{paymentViewModel>/delay}" title="{i18n>payment}" class="posOrder"
+		showNavButton="{paymentViewModel>/displayBackButton}" navButtonPress="onNavBack">
+		<content>
+			<Panel class="sapUiDemoFlexBoxSizeAdjustments posOrderShipmentPanel">
+				<FlexBox alignItems="Start">
+					<items>
+						<VBox>
+							<Label text="{parts:[{path:'paymentViewModel>/totalAmount'}], formatter:'.formatter.formatItemCurrency'}" design="Bold" width="100%"
+								class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="{parts:[{path:'paymentViewModel>/action'}], formatter:'.formatter.displayTotalAmountText'}" width="100%"
+								class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{parts:[{path:'paymentViewModel>/paid'}], formatter:'.formatter.formatItemCurrency'}" design="Bold" width="100%"
+								class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="{parts:[{path:'paymentViewModel>/action'}], formatter:'.formatter.displayPaidAmountText'}" width="100%"
+								class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{parts:[{path:'paymentViewModel>/payableAmount'}], formatter:'.formatter.formatItemCurrency'}" design="Bold" width="100%"
+								class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="{parts:[{path:'paymentViewModel>/action'}], formatter:'.formatter.displayPayableAmountText'}" width="100%"
+								class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{parts:[{path:'paymentViewModel>/changeAmount'}], formatter:'.formatter.formatItemCurrency'}" design="Bold" width="100%"
+								class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="{i18n>changeAmount}" width="100%" class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="" design="Bold" width="100%" class="sapUiSmallMarginEnd headerCurrency" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<Label text="" width="100%" class="sapUiSmallMarginEnd" textAlign="End">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+							</Label>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</VBox>
+					</items>
+				</FlexBox>
+			</Panel>
+			<Page showHeader="false" class="posPaymentPageContent">
+				<List items="{paymentViewModel>/CashSet}" inset="true">
+					<headerToolbar>
+						<Toolbar>
+							<Text text="{i18n>cash}" class="posTableHeader"/>
+							<ToolbarSpacer></ToolbarSpacer>
+						</Toolbar>
+					</headerToolbar>
+					<CustomListItem>
+						<HBox>
+							<HBox width="10%">
+								<Label text="{parts:[{path:'paymentViewModel>/action'},{path:'paymentViewModel>isEditable'}], formatter:'.formatter.displayCashPaidText'}"
+									class="sapUiSmallMargin" design="Bold"/>
+							</HBox>
+							<HBox>
+								<Text text="{i18n>dollar}" class="sapUiSmallMarginTop sapUiSmallMarginEnd"/>
+								<Input type="Number" textAlign="End" value="{paymentViewModel>Cash}" change="onCashAmountChange"
+									showValueStateMessage="{paymentViewModel>quantityShowValueStateMessage}" valueState="{paymentViewModel>quantityValueState}"
+									valueStateText="{i18n>amountValueStateText}" editable="{paymentViewModel>isEditable}"/>
+							</HBox>
+						</HBox>
+					</CustomListItem>
+				</List>
+				<Table items="{paymentViewModel>/CardSet}" updateFinished="onCardsUpdateFinished" inset="true" id="cardDetailsTable">
+					<headerToolbar>
+						<Toolbar>
+							<Text text="{i18n>creditCard}" class="posTableHeader"/>
+							<ToolbarSpacer></ToolbarSpacer>
+							<!--<Button tooltip="{i18n>addItemTooltip}" icon="sap-icon://add" press="onAddCard"/>-->
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column minScreenWidth="Desktop" width="20rem" demandPopin="true"><Text text="{i18n>cardNo}"/></Column>
+						<!--<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center"><Text text="{i18n>cardType}"/></Column>-->
+						<!--<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center"><Text text="{i18n>expiry}"/></Column>-->
+						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="End"><Text text="{i18n>amount}"/></Column>
+						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center"><Text text="{i18n>referenceNo}"/></Column>
+						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center" width="7rem"></Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<HBox class="posCardNumber">
+									<custom:CardNumberInput id="num1" value="{paymentViewModel>cardPartOne}" editable="false"/>
+									<custom:CardNumberInput id="num2" value="{paymentViewModel>cardPartTwo}" editable="false"/>
+									<custom:CardNumberInput id="num3" value="{paymentViewModel>cardPartThree}" editable="false"/>
+									<custom:CardNumberInput id="num4" value="{paymentViewModel>cardPartFour}" editable="false"/>
+								</HBox>
+								<!--<Select selectedKey="{paymentViewModel>cardType}" items="{cardTypesViewModel>/CardTypes}" enabled="false">-->
+								<!--	<core:Item key="{cardTypesViewModel>Key}" text="{cardTypesViewModel>Value}"/>-->
+								<!--</Select>-->
+								<!--<HBox class="posCardNumber" justifyContent="Center">-->
+								<!--	<Select selectedKey="{paymentViewModel>month}" items="{monthViewModel>/MonthSet}" forceSelection="false" enabled="false">-->
+								<!--		<core:Item key="{monthViewModel>Key}" text="{monthViewModel>Value}"/>-->
+								<!--	</Select>-->
+								<!--	<Select selectedKey="{paymentViewModel>year}" items="{yearViewModel>/YearSet}" forceSelection="false" enabled="false">-->
+								<!--		<core:Item key="{yearViewModel>Key}" text="{yearViewModel>Value}"/>-->
+								<!--	</Select>-->
+								<!--</HBox>-->
+								<HBox justifyContent="End">
+									<Text text="{paymentViewModel>documentCurrency}"/>
+									<Input textAlign="End" type="Number" class="sapUiSmallMarginBegin" change="onCardAmountChange" value="{paymentViewModel>cardAmount}"
+										showValueStateMessage="{paymentViewModel>showAmountValueStateMessage}" valueState="{paymentViewModel>amountValueState}"
+										valueStateText="{i18n>amountValueStateText}" enabled="{paymentViewModel>isEditable}"/>
+								</HBox>
+								<Text text="{paymentViewModel>referenceNo}" class="sapUiSmallMargin" textAlign="Center"/>
+								<!--<Button icon="sap-icon://simple-payment" type="Transparent" class="posButton posButtonBlue" press="onCardPayment"-->
+								<!--	enabled="{paymentViewModel>isEditable}"/>-->
+								<HBox justifyContent="End">
+									<Button type="Reject" text="{i18n>bpoint}" press="onBPointPayment"
+										visible="{parts:[{path:'paymentViewModel>txnType'},{path:'paymentViewModel>countryCode'}], formatter:'.formatter.formatBPointRefundBtnVisible'}"
+										enabled="{paymentViewModel>isEditable}"/>
+									<Button type="Reject" text="{parts:[{path:'paymentViewModel>txnType'}], formatter:'.formatter.formatTxnText'}" press="onCardPayment"
+										visible="{parts:[{path:'paymentViewModel>txnType'}], formatter:'.formatter.formatPinpadRefundBtnVisible'}"
+										enabled="{paymentViewModel>isEditable}"/>
+								</HBox>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<VBox class="sapUiMediumMargin">
+					<f:SimpleForm minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" title="" labelSpanL="2" labelSpanM="2"
+						emptySpanL="0" emptySpanM="0" columnsL="1" columnsM="1" class="posPaymentForm">
+						<f:content>
+							<core:Title text=""/>
+							<Label class="posLabel" text="{i18n>printReceipt}"/>
+							<CheckBox selected="{paymentViewModel>/PrintReceipt}"/>
+							<Label class="posLabel" text="{i18n>emailReceipt}"/>
+							<HBox class="posEmailReceipt">
+								<CheckBox selected="{paymentViewModel>/EmailReceipt}"/>
+								<Input value="{paymentViewModel>/email}" width="100%" class="posEmailInput" visible="{paymentViewModel>/EmailReceipt}"
+									placeholder="{i18n>enterEmailAddress}"/>
+							</HBox>
+						</f:content>
+					</f:SimpleForm>
+				</VBox>
+			</Page>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>save}" type="Emphasized" press="handlePayment" visible="true"/>
+				<Button text="{i18n>cancel}" type="Reject" press="handleCancel" visible="{paymentViewModel>/displayBackButton}"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

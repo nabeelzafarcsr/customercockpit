@@ -1,0 +1,111 @@
+<mvc:View id="posOrderDetails" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:uxap="sap.uxap" xmlns:f="sap.ui.layout.form"
+	controllerName="com.csr.customercockpit.controller.OrderDetails" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page busy="{orderDetailViewModel>/busy}" busyIndicatorDelay="{orderDetailViewModel>/delay}" title="{i18n>orderDetails}"
+		showNavButton="true" navButtonPress="onNavBack">
+		<content>
+			<uxap:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" class="posPageLayout">
+				<uxap:headerTitle>
+					<uxap:ObjectPageHeader objectTitle="{orderDetailViewModel>/item/materialNo} - {orderDetailViewModel>/item/materialDesc}"></uxap:ObjectPageHeader>
+				</uxap:headerTitle>
+				<uxap:headerContent></uxap:headerContent>
+				<uxap:sections>
+					<uxap:ObjectPageSection title="{i18n>itemDetails}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title=" " mode="Expanded">
+								<uxap:blocks>
+									<f:SimpleForm minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout" title="" labelSpanL="2" labelSpanM="2" emptySpanL="0"
+										emptySpanM="0" columnsL="1" columnsM="1">
+										<f:content>
+											<Label text="{i18n>itemNo}"></Label>
+											<Text text="{orderDetailViewModel>/item/itemID}"></Text>
+											<Label text="{i18n>requestedQuantity}"></Label>
+											<Text text="{parts:[{path:'orderDetailViewModel>/item/quantity'},{path:'orderDetailViewModel>/item/stockUnit'}], formatter:'.formatter.formatProductStock'}"></Text>
+											<Label text="{i18n>confirmedQuantity}"></Label>
+											<Text text="{parts:[{path:'orderDetailViewModel>/item/confirmedQuantity'},{path:'orderDetailViewModel>/item/stockUnit'}], formatter:'.formatter.formatProductStock'}"></Text>
+										</f:content>
+									</f:SimpleForm>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					<uxap:ObjectPageSection title="{i18n>scheduleLines}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title=" " mode="Expanded">
+								<uxap:blocks>
+									<Table items="{orderDetailViewModel>/scheduleLines}">
+										<headerToolbar>
+											<Toolbar>
+												<Text text="{i18n>scheduleLines} ({orderDetailViewModel>/scheduleLinesCount})"/>
+											</Toolbar>
+										</headerToolbar>
+										<columns>
+											<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>deliveryDate}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>quantity}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>confirmedQuantity}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="{i18n>deliveredQuantity}"/></Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<Text text="{parts:[{path:'orderDetailViewModel>SchedLineDate'}], formatter:'.formatter.dateFormatting'}"/>
+													<Text text="{parts:[{path:'orderDetailViewModel>OrderQty'},{path:'orderDetailViewModel>SalesUnit'}], formatter:'.formatter.formatProductStock'}"/>
+													<Text text="{parts:[{path:'orderDetailViewModel>ConfirmedQty'},{path:'orderDetailViewModel>SalesUnit'}], formatter:'.formatter.formatProductStock'}"/>
+													<Text text="{parts:[{path:'orderDetailViewModel>DeliveredQty'},{path:'orderDetailViewModel>SalesUnit'}], formatter:'.formatter.formatProductStock'}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					<uxap:ObjectPageSection title="{i18n>priceConditions}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection title=" " mode="Expanded">
+								<uxap:blocks>
+									<Table items="{orderDetailViewModel>/priceConditions}">
+										<headerToolbar>
+											<Toolbar>
+												<Text text="{i18n>priceConditions} ({orderDetailViewModel>/priceConditionsCount})"/>
+											</Toolbar>
+										</headerToolbar>
+										<columns>
+											<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>conditionTypeCode}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>amountInternal}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>priceUnit}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>unitOfMeasure}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>conditionValue}"/></Column>
+											<!--Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>unitNumerator}"/></Column-->
+											<Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>baseUnitOfMeasure}"/></Column>
+											<!--Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>unitDenominator}"/></Column-->
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<Text text="{orderDetailViewModel>CondTypeCode}"/>
+													<Text text="{parts:[{path:'orderDetailViewModel>AmountExternal'},{path:'orderDetailViewModel>RateUnitExternal'}], formatter:'.formatter.formatAmount'}"/>
+													<Text text="{orderDetailViewModel>PriceUnit}"/>
+													<Text text="{orderDetailViewModel>UnitOfMeasure}"/>
+													<Text text="{parts:[{path:'orderDetailViewModel>ValueInternal'},{path:'orderDetailViewModel>Currency'}], formatter:'.formatter.formatAmount'}"/>
+													<!--Text text="{orderDetailViewModel>UnitNumerator}"/-->
+													<Text text="{orderDetailViewModel>BaseUnitOfMeasure}"/>
+													<!--Text text="{orderDetailViewModel>UnitDenominator}"/-->
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+				</uxap:sections>
+			</uxap:ObjectPageLayout>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>cancel}" type="Reject" press="handleCancel" visible="true"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>
