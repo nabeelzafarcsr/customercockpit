@@ -981,7 +981,89 @@ sap.ui.define([
 			}
 			oViewModel.setProperty("/assestID", assestIDValue);
 		},
+		_getAssetSelected: function () {
+			var oAssetSelected = sap.ui.getCore().byId("AssetIDSelect");
+			if (oAssetSelected) {
+				var assetSelected = sap.ui.getCore().byId("AssetIDSelect").getSelectedKey();
+			}
+			if (assetSelected && assetSelected !== "") {
+				return assetSelected;
+			} else {
+				return "";
+			}
+		},
+		_getAssetSelectedOrDefault: function () {
+			// First try to get asset from dialog selection
+			var assetSelected = this._getAssetSelected();
+			if (assetSelected && assetSelected !== "") {
+				return assetSelected;
+			}
+
+			// Try multiple fallback approaches for asset detection
+			var assetValue = "";
+
+			try {
+				// Method 1: Check currentAsset control (from FLP extension)
+				var currentAsset = sap.ui.getCore().byId("currentAsset");
+				if (currentAsset && currentAsset.getValue) {
+					assetValue = currentAsset.getValue();
+					if (assetValue && assetValue !== "") {
+						return assetValue;
+					}
+				}
+			} catch (e) {
+				// Ignore errors from external controls
+			}
+
+			try {
+				// Method 2: Check AssetModel (from FLP extension)
+				var oAssetModel = sap.ui.getCore().getModel("AssetModel");
+				if (oAssetModel && oAssetModel.getProperty) {
+					assetValue = oAssetModel.getProperty("/DefaultAsset");
+					if (assetValue && assetValue !== "") {
+						return assetValue;
+					}
+				}
+			} catch (e) {
+				// Ignore errors from external models
+			}
+
+			try {
+				// Method 3: Check if asset is already set in paymentViewModel
+				var oViewModel = this.getView().getModel("paymentViewModel");
+				if (oViewModel) {
+					assetValue = oViewModel.getProperty("/assestID");
+					if (assetValue && assetValue !== "") {
+						return assetValue;
+					}
+				}
+			} catch (e) {
+				// Ignore errors
+			}
+
+			try {
+				// Method 4: Check for emergency fallback asset (set by FLP extension)
+				if (window.CSR_CONFIRMED_ASSET && window.CSR_CONFIRMED_ASSET !== "") {
+					return window.CSR_CONFIRMED_ASSET;
+				}
+			} catch (e) {
+				// Ignore errors
+			}
+
+			try {
+				// Method 5: Check localStorage as final fallback
+				var savedAsset = localStorage.getItem("defaultAsset");
+				if (savedAsset && savedAsset !== "" && savedAsset !== "null") {
+					return savedAsset;
+				}
+			} catch (e) {
+				// Ignore errors
+			}
+
+			return "";
+		},
 		createPaymentHeaderRequest: function () {
+			this.getAssestID();
 			var oViewModel = this.getView().getModel("paymentViewModel");
 			var changeOrderHeaderModel = this.getOwnerComponent().getModel("changeOrderHeaderModel");
 			var action = oViewModel.getProperty("/action");
@@ -993,15 +1075,15 @@ sap.ui.define([
 			var currency = customerOrderViewModel.getProperty("/DocumentCurrency");
 			var incoTerms1 = customerOrderViewModel.getProperty("/Inco1");
 			var salesOrderType = customerOrderViewModel.getProperty("/SalesOrderTypeCode");
-			var assestID = oViewModel.getProperty("/assestID");
+			var assestID = this._getAssetSelectedOrDefault();
 			var totalAmount = oViewModel.getProperty("/totalAmount");
 			var returnOrderedAmount = oViewModel.getProperty("/paid");
 			/*Start of commenting by C5253525 #266670 ePOS payment split error*/
-			//start of changes by i327900 #21056 
-			//  var vbeln; 
+			//start of changes by i327900 #21056
+			//  var vbeln;
 			//  var paymentVbeln = oViewModel.getProperty("/paymentVbeln");
 			// if(paymentVbeln){
-			//  vbeln = oViewModel.getProperty("/paymentVbeln");		
+			//  vbeln = oViewModel.getProperty("/paymentVbeln");
 			// }
 			// else{
 			// vbeln = oViewModel.getProperty("/vbeln");
@@ -1027,7 +1109,13 @@ sap.ui.define([
 			if (vbeln) {
 				paymentRequest.Vbeln = vbeln;
 			}
-			if (assestID) {
+			// Ensure we have a valid asset ID before sending to backend
+			if (!assestID || assestID === "") {
+				this.getAssestID();
+				assestID = oViewModel.getProperty("/assestID");
+			}
+
+			if (assestID && assestID !== "") {
 				paymentRequest.Assetid = assestID;
 			}
 
